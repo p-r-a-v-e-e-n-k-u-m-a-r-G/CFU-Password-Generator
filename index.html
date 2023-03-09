@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- installing fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+  <link rel="stylesheet" href="assets/CSS/app.css">
+  <title>Frontend Mentor | Password generator app</title>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div class="title">
+        <h1>Password Generator</h1>
+      </div>
+    </header>
+    <div class="box">
+      <section id="pws-g-form" class="password">
+        <input type="text" id="password__result" placeholder="P4$5W0rD!">
+        <p class="copied"> Copied</p>
+        <img class="icon" id="copyIcon" src="assets/images/icon-copy.svg" alt="copy icon">
+      </section>
+      <section class="evaluator">
+        <form id="form">
+          <div class="charlength">
+            <div class="charlength__output">
+              <label for="length">Character Length</label>
+              <output name="result" for="length" id="result">0</output>
+            </div>
+            <input type="range" name="length" id="length" min="0" max="20" value="0">
+          </div>
+          <div class="passwordChar">
+            <label for="uppercase" class="myCheck">
+              <input type="checkbox" id="uppercase">
+              Include Uppercase Letters
+              <span class="check"></span>
+            </label>
+
+            <label for="lowercase" class="myCheck">
+              <input type="checkbox" id="lowercase">
+              Include Lowercase Letters
+              <span class="check"></span>
+            </label>
+
+            <label for="numbers" class="myCheck">
+              <input type="checkbox" id="numbers">
+              Include Numbers
+              <span class="check"></span>
+            </label>
+
+            <label for="symbols" class="myCheck">
+              <input type="checkbox" id="symbols">
+              Include Symbols
+              <span class="check"></span>
+            </label>
+          </div>
+          <div class="btn">
+            <button id="generate" type="button" disabled="disabled" >Generate <img src="assets/images/icon-arrow-right.svg"
+                alt="arrow right">
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+  <script src="assets/JS/app.js">
+    const outputElement=document.querySelector('#output');
+const btnCopy=document.querySelector('#copyIcon');
+const passwordLengthElement=document.querySelector('#length');
+const captialElement=document.querySelector('#uppercase');
+const smallElement = document.querySelector('#lowercase');
+const numberElement = document.querySelector('#numbers') 
+const symbolElement=document.querySelector('#symbols');
+const frm=document.querySelector('#frm');
+
+function generateRandomChar(min,max)
+{
+  const limit=max-min+1;
+  return String.fromCharCode(Math.floor(Math.random()*limit)+min);
+}
+
+function captitalValue(){
+  return generateRandomChar(65,90);
+}
+function smallValue(){
+  return generateRandomChar(97,122);
+}
+function numberValue(){
+  return generateRandomChar(48,57);
+}
+
+function symbolValue(){
+  const symbols="~!@#$%^&*()_+|}{<>*./";
+  return symbols[Math.floor(Math.random()*symbols.length)];
+}
+const functionArray=[
+    {
+      element:numberElement,
+      fun:numberValue
+    },
+    {
+      element:captialElement,
+      fun:captitalValue
+    },
+    {
+      element:smallElement,
+      fun:smallValue
+    },
+    {
+      element:symbolElement,
+      fun:symbolValue
+    }
+  
+  
+  ];
+  
+  
+  frm.addEventListener('button',(e)=>{
+    e.preventDefault();
+    
+    const limit=passwordLengthElement.value;
+  
+  
+    let generatedPassword="";
+  
+    const funArray=functionArray.filter(({element})=>element.checked);
+    //console.log(funArray);
+  
+  //   for(i=0;i<limit;i++){
+  //     const index=Math.floor(Math.random()*funArray.length);
+  //     const letter=funArray[index].fun();
+  //     generatedPassword+=letter;//5$
+  //   }
+  
+  
+  
+  //   outputElement.value=generatedPassword;
+   });
+  </script>
+</body>
+
+</html>
